@@ -1,4 +1,4 @@
-public interface Patch_in {
+public interface PatchInterface {
 
     String Patch(String payload);
 }

@@ -1,4 +1,4 @@
-public interface Update {
+public interface UpdateInterface {
 
     String Update(String payload);
 }

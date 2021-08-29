@@ -6,14 +6,14 @@ import java.net.http.HttpResponse;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class handling_in implements Create_in, Patch_in, Delete_in, Update, Retrieve_in {
+public abstract class handlingInterface implements CreateInterface, PatchInterface, DeleteInterface, UpdateInterface, RetrieveInterface {
     final private static Logger log = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     private HttpRequest request;
     private HttpClient client;
     private String body;
     private Request r;
 
-    public handling_in(Request r) {
+    public handlingInterface(Request r) {
         this.r = r;
     }
 

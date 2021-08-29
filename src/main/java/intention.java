@@ -1,4 +1,4 @@
-public class intention extends handling_in
+public class intention extends handlingInterface
 {
     public intention(Request r) {
         super(r);

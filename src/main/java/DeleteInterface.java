@@ -1,4 +1,4 @@
-public interface Delete_in
+public interface DeleteInterface
 {
     String Delete(String payload);
 }

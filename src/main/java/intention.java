@@ -1,6 +1,3 @@
-public class intention extends handlingInterface
-{
-    public intention(Request r) {
-        super(r);
-    }
-}
+public class Intention extends DataAccessing {
+    public Intention(Request r) {
+        super(r); }}

@@ -1,0 +1,24 @@
+Deletable.java
+ Deletable
+Creatable.java
+ Creatable
+Correctable.java
+ Correctable
+Updatable.java
+ Updatable
+Retrievable.java
+ Retrievable
+Customer.java
+ Customer
+EditingData.java
+ EditingData
+Request.java
+ Request
+FetchingData.java
+ FetchingData
+Intention.java
+ Intention
+TestExample.java
+ TestExample
+DataAccessing.java
+ DataAccessing

@@ -1,9 +1,7 @@
-Paymob Next SDK
+Paymob Java SDK
 ============
- [![Current Version](https://img.shields.io/badge/version-1.0-green.svg)](https://github.com/misraX/paymob-next-java)
- [![GitHub Stars](https://img.shields.io/github/stars/misraX/paymob-next-java?style=social)](https://github.com/misraX/paymob-next-java/stargazers)
  
-This is a Paymob Next SDK powered by Java that provides smooth functions to integrate at Paymob-Next readily
+This is a Paymob SDK powered by Java that provides smooth functions to integrate at Paymob readily
 
 ---
 

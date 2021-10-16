@@ -1,5 +1,7 @@
 package com.paymob.http.methods;
 
+import org.json.JSONObject;
+
 public interface Retrieve {
-    String retrieve();
+    JSONObject retrieve(String payload);
 }

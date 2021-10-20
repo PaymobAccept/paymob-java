@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'com.paymob'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compileOnly('jakarta.platform:jakarta.jakartaee-api:9.0.0')
+    compileOnly('jakarta.mvc:jakarta.mvc-api:1.1.0')
+    compileOnly('jakarta.xml.ws:jakarta.xml.ws-api:3.0.0')
+    testImplementation('org.testng:testng:7.1.0')
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+}
+
+test {
+    useTestNG()
+}

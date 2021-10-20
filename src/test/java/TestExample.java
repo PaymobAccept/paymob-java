@@ -1,35 +1,19 @@
 import com.github.underscore.lodash.U;
+import com.paymob.resources.Capture;
 import com.paymob.resources.Intention;
 import com.paymob.http.Request;
-import org.apache.log4j.*;
+import com.paymob.resources.Refund;
+import com.paymob.resources.Void;
 
 import java.io.IOException;
 
 public class TestExample {
-    private static Logger log = Logger.getLogger(TestExample.class);
     public static void main(String[] args) throws IOException {
-        //create layout
-        Layout layout = new PatternLayout("%p %d %c %M %m %n");
-        // Layout layout2 = new HTMLLayout();
-        // Layout layout3 = new XMLLayout();
-        //create appender + link layout
-        // Appender app = new ConsoleAppender(layout);
-        // Appender app2 = new WriterAppender(layout2);
-        Appender app3 = new ConsoleAppender(layout);
-        Appender app4 = new FileAppender(layout,"./logs/logs.log");
-        // link appender with logger
-        log.addAppender(app3);
-        log.addAppender(app4);
-        // TODO: log.debug("debug 1");
-        // TODO  log.fatal("fatal 2");
-        // TODO  log.error("error 3");
-        // TODO log.warn("warn 4");
-        // TODO  log.info("test info 5");
 
         U.formatJson("{\"a\":{\"b\":\"data\"}}");
 
         U.Builder builder = U.objectBuilder()
-                .add("amount", "1000")
+                .add("amount", "3000")
                 .add("currency", "EGP")
 
                 .add("payment_methods",U.arrayBuilder()
@@ -59,14 +43,14 @@ public class TestExample {
 
                         .add(U.objectBuilder()
                                 .add("name", "ASC1515")
-                                .add("amount", "500")
-                                .add("description", "Smart Watch")
+                                .add("amount", "1500")
+                                .add("description", "foot")
                                 .add("quantity", "1"))
 
                         .add(U.objectBuilder()
                                 .add("name", "ERT6565")
-                                .add("amount", "500")
-                                .add("description", "Power Bank")
+                                .add("amount", "1500")
+                                .add("description", "ball")
                                 .add("quantity", "1")))
 
                 .add("extras",U.objectBuilder()
@@ -74,10 +58,12 @@ public class TestExample {
                         .add("userid","30"));
 
         Request r = new Request();
-        r.setSecretKey("skl_eb7e7ac5117dcd6c0b7539a635f61764aca615bd3b63051606b845c30db3bff8");
-        String respons = new Intention(r).create(builder.toJson());
-       System.out.println(respons);
-       System.out.println(new Intention(r).retrieve());
-
+        r.setSecretKey("skl_221fb053736eb27f0a28d51511bed6b3d4eda6ab41413a1e168d1e06d4ebaf8a");
+         System.out.println(new Intention(r).create(builder.toJson()));
+        // System.out.println(new Intention(r).retrieve(builder.toJson()));
+        // System.out.println(new Intention(r).List());
+        System.out.println(new Capture(r).create(""));
+        System.out.println(new Refund(r).create(""));
+        System.out.println(new Void(r).create(""));
     }
 }

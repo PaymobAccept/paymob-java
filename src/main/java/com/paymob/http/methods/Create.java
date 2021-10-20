@@ -1,5 +1,7 @@
 package com.paymob.http.methods;
 
+import org.json.JSONObject;
+
 public interface Create {
-    String create(String payload);
+    JSONObject create(String payload);
 }

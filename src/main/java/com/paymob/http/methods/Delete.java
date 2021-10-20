@@ -1,5 +1,7 @@
 package com.paymob.http.methods;
 
+import org.json.JSONObject;
+
 public interface Delete {
-    String delete(String payload);
+    JSONObject delete(String payload);
 }

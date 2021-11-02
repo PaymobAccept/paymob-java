@@ -1,60 +1,52 @@
-Paymob Java SDK
-============
- 
-This is a Paymob SDK powered by Java that provides smooth functions to integrate at Paymob readily
+# Paymob Java SDK
 
----
+## _The Fast Way To Get Payment Duds Ready, Ever_
 
-#### There are a 5 functions to handle a request :
+[![ForTheBadge powered-by-paymob](./powered-by-paymob.svg)](https://www.paymob.com/)
 
-- **create:** for creating a POST request 
-- **update:** for creating a PUT request 
-- **patch:** for creating a PATCH request 
-- **retrieve:** for creating a GET request 
-- **delete:** for creating a DELETE request
----
+Paymob Java SDK provides smooth functions to integrate with Paymob readily it's a minimal, straightforward and easy way to implement the payment intention methods, voiding, refunding and more..
 
-## Setup
+Find our [docs](https://docs.paymob.com/)
 
-You need to call a Jar file into your project files 
+## Installation        
 
-## For apache netbeans:
+### For apache Netbeans:
 
- Start a new project with Ant 
-
-![step1](https://i.imgur.com/juS2Y3Z.png)
-
-Then right click on `Libraries` directory and press on `add JAR/Folder` and choose the Jar file then click ok
+#### At this moment you need to add the jar file manually
+You need to click on `Libraries` directory and press on `add JAR/Folder` and choose the Jar file then click ok
 
 ![step2](https://i.imgur.com/3HzOjLx.png)
 
-## For Intellij IDE: 
+### For Intellij IDE:
 
-Click on `file` >> `project structure`
+ #### You need to Create a lib folder and move the jar file into it then you need to add this line in the build.gradle file:
 
-![step1](https://i.imgur.com/rQ7WcoF.png)
+`implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')`
 
-Then click on click on `Libraries` >> `Java`
+## Prerequisites
 
-![step2](https://i.imgur.com/YDvM2Wt.png)
+##You need at least Java 8 SE installed on your machine
 
----
+## Supported languages
 
-## Usage
+from java 8 to java 15
 
-First, you need to initialize an object from Request class.
+## Intention
+Paymob Java SDK offers verity of intention methods like create, retrieve and list ..
 
-`Request r = new Request();`
+- Create
+  #### first you need to create a request
+  `Request request = new Request();`
 
+  #### then set your secretKey
+  `request.setSecretKey("skl_726d35c37defcffd4edf9d3743228cd5535620be7111xxxxxxxxxxxxxxxxxxxx");`
 
-Then you need to set the secret key by using a setSecret_key() function to passing a secret key value into headers 
+  #### finally create an intention
+  `new Intention(request).create(builder.toJson());`
 
-`r.setSecretKey("skt_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");`
+  #### if you need to customise the intention by adding a diffrent base url and diffrent version
+  `new Intention( request , new Model("https://next-stg.paymobsolutions.com/next/api",1)).create(builder.toJson());`
 
-Finally, all 5 functions return a JSON body as a String,
-
-To get the JSON body you need to create a new object from the intention class and call the function by passing the payload into it except Retrieve function.
-
-`new Intention(r).create(" {\"amount\":3000}");`
-
----
+- List
+   #### create a List
+  `new Intention(request).List();`

@@ -1,14 +1,14 @@
 import com.github.underscore.lodash.U;
+import com.paymob.http.Model;
+import com.paymob.http.Request;
 import com.paymob.resources.Capture;
 import com.paymob.resources.Intention;
-import com.paymob.http.Request;
 import com.paymob.resources.Refund;
 import com.paymob.resources.Void;
 
-import java.io.IOException;
 
 public class TestExample {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
 
         U.formatJson("{\"a\":{\"b\":\"data\"}}");
 
@@ -26,7 +26,7 @@ public class TestExample {
                                 .add("first_name", "Abdelrahman")
                                 .add("street", "Ethan Land")
                                 .add("building", "8028")
-                                .add("phone_number", "01010101010")
+                                .add("phone_number", "+201010101019")
                                 .add("shipping_method", "PKG")
                                 .add("postal_code", "01898")
                                 .add("city", "Cairo")
@@ -57,13 +57,34 @@ public class TestExample {
                         .add("name","test")
                         .add("userid","30"));
 
-        Request r = new Request();
-        r.setSecretKey("skl_221fb053736eb27f0a28d51511bed6b3d4eda6ab41413a1e168d1e06d4ebaf8a");
-         System.out.println(new Intention(r).create(builder.toJson()));
-        // System.out.println(new Intention(r).retrieve(builder.toJson()));
-        // System.out.println(new Intention(r).List());
-        System.out.println(new Capture(r).create(""));
-        System.out.println(new Refund(r).create(""));
-        System.out.println(new Void(r).create(""));
+        // create a request
+        Request request = new Request();
+
+        // set secretKey
+        request.setSecretKey("skl_726d35c37defcffd4edf9d3743228cd5535620be7111fc3387e317ef9c0dbcba");
+
+        // create an intention
+        new Intention(request).create(builder.toJson());
+
+        // custmise the intention by adding a diffrent base url and diffrent version
+        new Intention( request , new Model("https://next-stg.paymobsolutions.com/next/api",1)).create(builder.toJson());
+
+        // create an retrieve
+        new Intention(request).retrieve("0cc46c79-e377-4c43-91c4-95f7a2fca151");
+
+        // create an List
+        new Intention(request).List();
+
+        // creating a refund
+        new Refund(request).create(builder.toJson());
+        new Refund(request, new Model("https://anotherBaseURL/", 1)).create(builder.toJson());
+
+        // creating a capture
+        new Capture(request).create(builder.toJson());
+        new Capture(request, new Model("https://anotherBaseURL/", 1)).create(builder.toJson());
+
+        // creating a void
+        new Void(request).create(builder.toJson());
+        new Void(request, new Model("https://anotherBaseURL/",1)).create(builder.toJson());
     }
 }

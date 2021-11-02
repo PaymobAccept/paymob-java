@@ -1,5 +1,6 @@
 package com.paymob.http.utils;
 
+import com.paymob.http.Model;
 import com.paymob.http.Request;
 import com.paymob.http.methods.Delete;
 import org.apache.log4j.Logger;
@@ -12,8 +13,12 @@ import java.net.http.HttpRequest;
 public abstract class DataAccessing extends EditingData implements Delete {
     private static final Logger log3 = Logger.getLogger(DataAccessing.class);
 
-    public DataAccessing(Request r) {
-        super(r);
+    public DataAccessing(Request request, Model model) {
+        super(request, model);
+    }
+
+    public DataAccessing(Request request) {
+        super(request);
     }
 
     @Override

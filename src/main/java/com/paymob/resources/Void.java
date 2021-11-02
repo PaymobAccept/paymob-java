@@ -1,5 +1,6 @@
 package com.paymob.resources;
 
+import com.paymob.http.Model;
 import com.paymob.http.Request;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -14,6 +15,10 @@ public class Void extends Refund {
     public Void(Request requestObject) {
         super(requestObject);
     }
+    public Void(Request requestObject, Model model) {
+        super(requestObject, model);
+    }
+
 
     @Override
     public JSONObject create(String payload) {

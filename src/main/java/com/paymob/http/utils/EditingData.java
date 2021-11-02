@@ -1,6 +1,7 @@
 package com.paymob.http.utils;
 
 import com.paymob.http.FetchingData;
+import com.paymob.http.Model;
 import com.paymob.http.Request;
 import com.paymob.http.methods.Create;
 import com.paymob.http.methods.Patch;
@@ -15,8 +16,12 @@ import java.net.http.HttpRequest;
 public abstract class EditingData extends FetchingData implements Patch, Update, Create {
     private static final Logger log2 = Logger.getLogger(EditingData.class);
 
-    public EditingData(Request r) {
-        super(r);
+    public EditingData(Request request, Model model) {
+        super(request, model);
+    }
+
+    public EditingData(Request request) {
+        super(request);
     }
 
     @Override

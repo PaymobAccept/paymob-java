@@ -1,5 +1,6 @@
 package com.paymob.resources;
 
+import com.paymob.http.Model;
 import com.paymob.http.Request;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -12,8 +13,12 @@ public class Refund extends Capture {
 
     private static final Logger log4 = Logger.getLogger(Refund.class);
 
-    public Refund(Request r) {
-        super(r);
+    public Refund(Request requestObject, Model model) {
+        super(requestObject,model);
+    }
+
+    public Refund(Request requestObject) {
+        super(requestObject);
     }
 
     @Override

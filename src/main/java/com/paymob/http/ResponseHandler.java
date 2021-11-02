@@ -9,13 +9,17 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ResponseHandler extends HeaderHandler {
-    private static final Logger log11 = Logger.getLogger(HeaderHandler.class);
+    private static final Logger log1 = Logger.getLogger(HeaderHandler.class);
 
     protected JSONObject body;
     protected String requestEndpoint;
     protected HttpResponse<String> response;
     protected HttpRequest request;
     protected HttpClient client;
+
+    public ResponseHandler(Request requestObject, Model model) {
+        super(requestObject, model);
+    }
 
     public ResponseHandler(Request requestObject) {
         super(requestObject);
@@ -25,27 +29,29 @@ public class ResponseHandler extends HeaderHandler {
         response = null;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
-            log11.error(e.getMessage());
+
+            if (response.statusCode() == 401)
+                log1.error("Incorrect authentication credential: Error code: " + response.statusCode());
+            else if (response.statusCode() == 404)
+                log1.error("Page not found Error code: " + response.statusCode());
+            else if (response.statusCode() == 405)
+                log1.error("Method Not Allowed: Error code: " + response.statusCode());
+            else if (response.statusCode() == 415)
+                log1.error("invalid format: Error code: " + response.statusCode());
+            else if (response.statusCode() == 500)
+                log1.error("Internal Server Error: Error code: " + response.statusCode());
+            else {
+                body = new JSONObject(response.body());
+                requestEndpoint = String.valueOf(response.request());
+            }
+
+        } catch (IOException | InterruptedException | NullPointerException e) {
+            log1.error(e.getMessage());
         }
         assert response != null;
-
-        if (response.statusCode() == 401)
-            log11.error("Incorrect authentication credential: Error code: " + response.statusCode());
-        else if (response.statusCode() == 404)
-            log11.error("Page not found Error code: " + response.statusCode());
-        else if (response.statusCode() == 405)
-            log11.error("Method Not Allowed: Error code: " + response.statusCode());
-        else if (response.statusCode() == 415)
-            log11.error("invalid format: Error code: " + response.statusCode());
-        else if (response.statusCode() == 500)
-            log11.error("Internal Server Error: Error code: " + response.statusCode());
-        else {
-            body = new JSONObject(response.body());
-            requestEndpoint = String.valueOf(response.request());
-        }
     }
+
     protected void request_info() {
-        log11.info("Sending Request to Paymob: " + requestEndpoint);
+        log1.info("Sending Request to Paymob: " + requestEndpoint);
     }
 }

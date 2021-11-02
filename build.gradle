@@ -15,8 +15,10 @@ dependencies {
     implementation group: 'log4j', name: 'log4j', version: '1.2.17'
     implementation 'com.github.javadev:underscore:1.70'
     implementation group: 'org.json', name: 'json', version: '20210307'
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
 }
 
 test {
     useJUnitPlatform()
 }
+

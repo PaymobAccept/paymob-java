@@ -14,8 +14,6 @@ com/paymob/http/Request.java
  com.paymob.http.Request
 com/paymob/http/HeaderHandler.java
  com.paymob.http.HeaderHandler
-com/paymob/http/Model.java
- com.paymob.http.Model
 com/paymob/http/utils/DataAccessing.java
  com.paymob.http.utils.DataAccessing
 com/paymob/http/utils/EditingData.java
@@ -30,5 +28,7 @@ com/paymob/resources/Capture.java
  com.paymob.resources.Capture
 com/paymob/http/ResponseHandler.java
  com.paymob.http.ResponseHandler
+com/paymob/http/Model.java
+ com.paymob.http.Model
 com/paymob/resources/Void.java
  com.paymob.resources.Void

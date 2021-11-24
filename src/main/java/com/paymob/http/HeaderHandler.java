@@ -20,7 +20,7 @@ public class HeaderHandler extends Model {
 
     protected String[] arrHeader() {
         d = new String[] {
-                    "sdk_api_version", String.valueOf(getVersion()) + getSdk_api_version(),
+                    "sdk_api_version", getSdk_api_version(),
                     "sdk_language", "Java",
                     "Content-Type", "application/json",
                     "Authorization", auth_header(),
@@ -39,7 +39,6 @@ public class HeaderHandler extends Model {
     protected final String intentionURL() {
         return new StringBuilder()
                 .append(getBase_URL())
-                .append(getVersion())
                 .append(getSdk_api_version())
                 .append(getIntentionPath())
                 .toString();
@@ -48,7 +47,6 @@ public class HeaderHandler extends Model {
         protected final String refundURL() {
             return new StringBuilder()
                     .append(getBase_URL())
-                    .append(getVersion())
                     .append(getSdk_api_version())
                     .append(getRefundPath())
                     .toString();
@@ -57,7 +55,6 @@ public class HeaderHandler extends Model {
         protected final String voidURL() {
             return new StringBuilder()
                     .append(getBase_URL())
-                    .append(getVersion())
                     .append(getSdk_api_version())
                     .append(getVoidPath())
                     .toString();
@@ -66,7 +63,6 @@ public class HeaderHandler extends Model {
         protected final String captureURL() {
             return new StringBuilder()
                     .append(getBase_URL())
-                    .append(getVersion())
                     .append(getSdk_api_version())
                     .append(getCapturePath())
                     .toString();
@@ -75,7 +71,6 @@ public class HeaderHandler extends Model {
     protected final String paymob_Sdk_version() {
         return new StringBuilder()
                 .append("Paymob Python SDK ")
-                .append(getVersion())
                 .append(getSdk_api_version())
                 .toString();
     }

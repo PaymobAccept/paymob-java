@@ -22,6 +22,8 @@ com/paymob/resources/Refund.java
  com.paymob.resources.Refund
 com/paymob/http/FetchingData.java
  com.paymob.http.FetchingData
+com/paymob/resources/Customer.java
+ com.paymob.resources.Customer
 com/paymob/resources/Intention.java
  com.paymob.resources.Intention
 com/paymob/resources/Capture.java

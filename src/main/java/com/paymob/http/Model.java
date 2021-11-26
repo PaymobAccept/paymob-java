@@ -32,6 +32,10 @@ public class Model {
         return "/intention/";
     }
 
+    protected final String getCustomerPath() {
+        return "/customer/";
+    }
+
     protected final String getRefundPath() {
         return "/payment-reference/refund/";
     }

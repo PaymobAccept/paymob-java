@@ -24,12 +24,7 @@ public abstract class FetchingData extends ResponseHandler implements Retrieve, 
     @Override
     public JSONObject retrieve(String referenceTransaction) {
         client = HttpClient.newHttpClient();
-        request =
-                HttpRequest.newBuilder()
-                        .uri(URI.create(intentionURL() + referenceTransaction + '/'))
-                        .GET()
-                        .headers(d)
-                        .build();
+        request = HttpRequest.newBuilder().uri(URI.create(intentionURL() + referenceTransaction + '/')).GET().headers(d).build();
         getBody();
         request_info();
         log.debug("The retrieve transaction is: " + referenceTransaction);

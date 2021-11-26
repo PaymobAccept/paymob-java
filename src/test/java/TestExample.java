@@ -10,7 +10,7 @@ public class TestExample {
 
                 U.formatJson("{\"a\":{\"b\":\"data\"}}");
 
-                U.Builder builder = U.objectBuilder()
+                U.Builder sample_payload = U.objectBuilder()
                         .add("amount", "3000")
                         .add("currency", "EGP")
 
@@ -55,45 +55,51 @@ public class TestExample {
                                 .add("name","test")
                                 .add("userid","30"));
 
-                // create a request
-                Request request = new Request();
 
-                // set secretKey
+                U.Builder moto_payload = U.objectBuilder()
+                        .add("client_secret","ckl_f0390954c1cbed9ac8e7f86cd2902ea69")
+                        .add("token","e29ac6d6676da32f28c7fe5a1a111694978f14ea686915f42fa53e93")
+                        .add("customer_id","c26e2788-d367-4789-9b68-c431943b1d9a")
+                        .add("method","card-moto")
+                        .add("payment_method_id","1599970");
 
-         request.setSecretKey("skl_51bf49f38681a7d859fbb7a48d43df747877e66e906a1851efad3c8f427c1082");
+        // create a request
+                 Request request = new Request();
+
+        // set secretKey
+                 request.setSecretKey("skl_51bf49f38681a7d859fbb7a48d43df747877e66e906a1851efad3c8f427c1082");
 
         // create an intention
-        //  new Intention(request).create(builder.toJson());
+        //       new Intention(request).create(sample_payload.toJson());
+
+        // create a moto intention
+                 new PayToken(request).create(moto_payload.toJson());
 
         // list the customers
-        new Customer(request).List();
+        //        new Customer(request).List();
 
         // retrieve the customer
-        new Customer(request).retrieve("73dcb83d-c93b-49e9-968e-1614dd93a839");
+        //        new Customer(request).retrieve("73dcb83d-c93b-49e9-968e-1614dd93a839");
 
-        //        // customize the intention by adding a different base url and different version
-        //        new Intention( request , new
-        // Model("https://next-stg.paymobsolutions.com/next/api",1)).create(builder.toJson());
-        //
-        //        // create an retrieve
+        // customize the intention by adding a different base url and different version
+        //        new Intention( request , new Model("https://next-stg.paymobsolutions.com/next/api",1)).create(builder.toJson());
+
+        // create an retrieve
         //        new Intention(request).retrieve("07dab2c8-7bbc-4cab-bcfa-3019e1c058d5");
-        //
+
         // create an List
-        // new Intention(request).List();
-        //
-        //        // creating a refund
-        //        new Refund(request).create(builder.toJson());
-        //        new Refund(request, new Model("https://anotherBaseURL/",
-        // 1)).create(builder.toJson());
-        //
-        //        // creating a capture
-        //        new Capture(request).create(builder.toJson());
-        //        new Capture(request, new Model("https://anotherBaseURL/",
-        // 1)).create(builder.toJson());
-        //
-        //        // creating a void
-        //        new Void(request).create(builder.toJson());
-        //        new Void(request, new
-        // Model("https://anotherBaseURL/",1)).create(builder.toJson());
+        //        new Intention(request).List();
+
+        // creating a refund
+        //        new Refund(request).create(sample_payload.toJson());
+        //        new Refund(request, new Model("https://anotherBaseURL/",1)).create(sample_payload.toJson());
+
+        // creating a capture
+        //        new Capture(request).create(sample_payload.toJson());
+        //        new Capture(request, new Model("https://anotherBaseURL/",1)).create(sample_payload.toJson());
+
+        // creating a void
+        //        new Void(request).create(sample_payload.toJson());
+        //        new Void(request, new Model("https://anotherBaseURL/",1)).create(sample_payload.toJson());
     }
 }

@@ -26,6 +26,8 @@ com/paymob/resources/Customer.java
  com.paymob.resources.Customer
 com/paymob/resources/Intention.java
  com.paymob.resources.Intention
+com/paymob/resources/PayToken.java
+ com.paymob.resources.PayToken
 com/paymob/resources/Capture.java
  com.paymob.resources.Capture
 com/paymob/http/ResponseHandler.java

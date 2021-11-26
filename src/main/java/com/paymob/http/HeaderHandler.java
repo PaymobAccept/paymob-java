@@ -76,6 +76,14 @@ public class HeaderHandler extends Model {
                 .toString();
     }
 
+    protected final String motoURL() {
+        return new StringBuilder()
+                .append(getBase_URL())
+                .append(getSdk_api_version())
+                .append(getMotoPath())
+                .toString();
+    }
+
     protected final String paymob_Sdk_version() {
         return new StringBuilder()
                 .append("Paymob Python SDK ")

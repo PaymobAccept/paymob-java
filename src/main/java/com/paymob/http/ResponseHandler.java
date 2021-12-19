@@ -1,21 +1,23 @@
 package com.paymob.http;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import java.time.Duration;
+import java.util.concurrent.ExecutionException;
+
 public class ResponseHandler extends HeaderHandler {
-    private static final Logger log1 = Logger.getLogger(HeaderHandler.class);
+    private static final Logger log1 = LogManager.getLogger(HeaderHandler.class);
 
     protected JSONObject body;
     protected String requestEndpoint;
     protected HttpResponse<String> response;
     protected HttpRequest request;
-    protected HttpClient client;
 
     public ResponseHandler(Request requestObject, Model model) {
         super(requestObject, model);
@@ -25,11 +27,17 @@ public class ResponseHandler extends HeaderHandler {
         super(requestObject);
     }
 
-    protected void getBody() {
-        response = null;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    private final HttpClient client = HttpClient
+            .newBuilder()
+            .version(HttpClient.Version.HTTP_2)
+            .connectTimeout(Duration.ofSeconds(2))
+            .build();
 
+    protected void getBody() {
+        try {
+           response = client.sendAsync(request,
+                   HttpResponse.BodyHandlers.ofString()).get();
+           
             if (response.statusCode() == 401)
                 log1.error("Incorrect authentication credential: Error code: " + response.statusCode());
             else if (response.statusCode() == 404)
@@ -42,13 +50,11 @@ public class ResponseHandler extends HeaderHandler {
                 log1.error("Internal Server Error: Error code: " + response.statusCode());
             else {
                 body = new JSONObject(response.body());
-                requestEndpoint = String.valueOf(response.request());
+                requestEndpoint = response.request().toString();
             }
-
-        } catch (IOException | InterruptedException | NullPointerException e) {
+        } catch (NullPointerException | IllegalArgumentException | InterruptedException | ExecutionException e) {
             log1.error(e.getMessage());
         }
-        assert response != null;
     }
 
     protected void request_info() {

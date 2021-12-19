@@ -2,7 +2,7 @@ package com.paymob.http;
 
 public class HeaderHandler extends Model {
 
-    protected String[] d;
+    private String[] d;
     protected Request requestObject;
     protected Model model;
 

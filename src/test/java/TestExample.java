@@ -1,17 +1,14 @@
 import com.github.underscore.lodash.U;
-import com.paymob.http.Model;
+import com.google.gson.Gson;
 import com.paymob.http.Request;
 import com.paymob.resources.*;
-import com.paymob.resources.Void;
 
 
 public class TestExample {
-    public static void main(String[] args)  {
-
-                U.formatJson("{\"a\":{\"b\":\"data\"}}");
+    public static void main(String[] args){
 
                 U.Builder sample_payload = U.objectBuilder()
-                        .add("amount", "3000")
+                        .add("amount", "2000")
                         .add("currency", "EGP")
 
                         .add("payment_methods",U.arrayBuilder()
@@ -41,20 +38,19 @@ public class TestExample {
 
                                 .add(U.objectBuilder()
                                         .add("name", "ASC1515")
-                                        .add("amount", "1500")
-                                        .add("description", "foot")
+                                        .add("amount", "1000")
+                                        .add("description", "football")
                                         .add("quantity", "1"))
 
                                 .add(U.objectBuilder()
                                         .add("name", "ERT6565")
-                                        .add("amount", "1500")
-                                        .add("description", "ball")
+                                        .add("amount", "1000")
+                                        .add("description", "toy2")
                                         .add("quantity", "1")))
 
                         .add("extras",U.objectBuilder()
                                 .add("name","test")
                                 .add("userid","30"));
-
 
                 U.Builder moto_payload = U.objectBuilder()
                         .add("client_secret","ckl_f0390954c1cbed9ac8e7f86cd2902ea69")
@@ -67,39 +63,40 @@ public class TestExample {
                  Request request = new Request();
 
         // set secretKey
-                 request.setSecretKey("skl_51bf49f38681a7d859fbb7a48d43df747877e66e906a1851efad3c8f427c1082");
+                 request.setSecretKey("skl_1fb7a2f55a3cc0cff0c76d886e0c646e05900555c8de96b7d863f944cc9703d0");
 
         // create an intention
-        //       new Intention(request).create(sample_payload.toJson());
+                 new Intention(request).create(sample_payload.toJson());
 
         // create a moto intention
-                 new PayToken(request).create(moto_payload.toJson());
+                 // new PayToken(request).create(moto_payload.toJson());
 
         // list the customers
-        //        new Customer(request).List();
+                 //new Customer(request).List();
 
         // retrieve the customer
-        //        new Customer(request).retrieve("73dcb83d-c93b-49e9-968e-1614dd93a839");
+                //new Customer(request).retrieve("73dcb83d-c93b-49e9-968e-1614dd93a839");
 
         // customize the intention by adding a different base url and different version
-        //        new Intention( request , new Model("https://next-stg.paymobsolutions.com/next/api",1)).create(builder.toJson());
+                //new Intention( request , new Model("https://next-stg.paymobsolutions.com/next/api",1)).create(builder.toJson());
 
         // create an retrieve
-        //        new Intention(request).retrieve("07dab2c8-7bbc-4cab-bcfa-3019e1c058d5");
+                //new Intention(request).retrieve("07dab2c8-7bbc-4cab-bcfa-3019e1c058d5");
 
         // create an List
-        //        new Intention(request).List();
+                //new Intention(request).List();
 
         // creating a refund
-        //        new Refund(request).create(sample_payload.toJson());
-        //        new Refund(request, new Model("https://anotherBaseURL/",1)).create(sample_payload.toJson());
+                //new Refund(request).create(sample_payload.toJson());
+                //new Refund(request, new Model("https://anotherBaseURL/",1)).create(sample_payload.toJson());
 
         // creating a capture
-        //        new Capture(request).create(sample_payload.toJson());
-        //        new Capture(request, new Model("https://anotherBaseURL/",1)).create(sample_payload.toJson());
+                //new Capture(request).create(sample_payload.toJson());
+                //new Capture(request, new Model("https://anotherBaseURL/",1)).create(sample_payload.toJson());
 
         // creating a void
-        //        new Void(request).create(sample_payload.toJson());
-        //        new Void(request, new Model("https://anotherBaseURL/",1)).create(sample_payload.toJson());
+                //new Void(request).create(sample_payload.toJson());
+                //new Void(request, new Model("https://anotherBaseURL/",1)).create(sample_payload.toJson());
     }
+
 }

@@ -1,18 +1,26 @@
 package com.paymob.http;
 
-import org.apache.log4j.Logger;
-
 public class HeaderHandler extends Model {
 
-    protected String[] d;
+    private String[] d;
     protected Request requestObject;
+    protected Model model;
 
-    private static final Logger log1 = Logger.getLogger(HeaderHandler.class);
+    public HeaderHandler(Request requestObject, Model model) {
+        super(model.getBase_URL(), model.getSdk_api_version());
+        this.requestObject = requestObject;
+        this.model = model;
+        arrHeader();
+    }
 
     public HeaderHandler(Request requestObject) {
         this.requestObject = requestObject;
+        arrHeader();
+    }
+
+    protected String[] arrHeader() {
         d = new String[] {
-                    "sdk_api_version", String.valueOf(getVersion()) + getSdk_api_version(),
+                    "sdk_api_version", getSdk_api_version(),
                     "sdk_language", "Java",
                     "Content-Type", "application/json",
                     "Authorization", auth_header(),
@@ -25,48 +33,60 @@ public class HeaderHandler extends Model {
                     "sdk_dir", System.getProperty("user.dir"),
                     "User-Agent", paymob_Sdk_version()
                 };
+        return d;
     }
 
     protected final String intentionURL() {
         return new StringBuilder()
                 .append(getBase_URL())
-                .append(getVersion())
                 .append(getSdk_api_version())
                 .append(getIntentionPath())
                 .toString();
     }
 
-    protected final String refundURL() {
+        protected final String refundURL() {
+            return new StringBuilder()
+                    .append(getBase_URL())
+                    .append(getSdk_api_version())
+                    .append(getRefundPath())
+                    .toString();
+        }
+
+        protected final String voidURL() {
+            return new StringBuilder()
+                    .append(getBase_URL())
+                    .append(getSdk_api_version())
+                    .append(getVoidPath())
+                    .toString();
+        }
+
+        protected final String captureURL() {
+            return new StringBuilder()
+                    .append(getBase_URL())
+                    .append(getSdk_api_version())
+                    .append(getCapturePath())
+                    .toString();
+        }
+
+    protected final String customerURL() {
         return new StringBuilder()
                 .append(getBase_URL())
-                .append(getVersion())
                 .append(getSdk_api_version())
-                .append(getRefundPath())
+                .append(getCustomerPath())
                 .toString();
     }
 
-    protected final String voidURL() {
+    protected final String motoURL() {
         return new StringBuilder()
                 .append(getBase_URL())
-                .append(getVersion())
                 .append(getSdk_api_version())
-                .append(getVoidPath())
-                .toString();
-    }
-
-    protected final String captureURL() {
-        return new StringBuilder()
-                .append(getBase_URL())
-                .append(getVersion())
-                .append(getSdk_api_version())
-                .append(getCapturePath())
+                .append(getMotoPath())
                 .toString();
     }
 
     protected final String paymob_Sdk_version() {
         return new StringBuilder()
                 .append("Paymob Python SDK ")
-                .append(getVersion())
                 .append(getSdk_api_version())
                 .toString();
     }
@@ -74,8 +94,4 @@ public class HeaderHandler extends Model {
     protected final String auth_header() {
         return new StringBuilder().append("Token ").append(requestObject.getSecretKey()).toString();
     }
-
-
-
-
 }

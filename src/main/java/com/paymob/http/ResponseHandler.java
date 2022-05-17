@@ -1,51 +1,63 @@
 package com.paymob.http;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+import java.time.Duration;
+import java.util.concurrent.ExecutionException;
+
 public class ResponseHandler extends HeaderHandler {
-    private static final Logger log11 = Logger.getLogger(HeaderHandler.class);
+    private static final Logger log1 = LogManager.getLogger(HeaderHandler.class);
 
     protected JSONObject body;
     protected String requestEndpoint;
     protected HttpResponse<String> response;
     protected HttpRequest request;
-    protected HttpClient client;
+
+    public ResponseHandler(Request requestObject, Model model) {
+        super(requestObject, model);
+    }
 
     public ResponseHandler(Request requestObject) {
         super(requestObject);
     }
 
-    protected void getBody() {
-        response = null;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
-            log11.error(e.getMessage());
-        }
-        assert response != null;
+    private final HttpClient client = HttpClient
+            .newBuilder()
+            .version(HttpClient.Version.HTTP_2)
+            .connectTimeout(Duration.ofSeconds(2))
+            .build();
 
-        if (response.statusCode() == 401)
-            log11.error("Incorrect authentication credential: Error code: " + response.statusCode());
-        else if (response.statusCode() == 404)
-            log11.error("Page not found Error code: " + response.statusCode());
-        else if (response.statusCode() == 405)
-            log11.error("Method Not Allowed: Error code: " + response.statusCode());
-        else if (response.statusCode() == 415)
-            log11.error("invalid format: Error code: " + response.statusCode());
-        else if (response.statusCode() == 500)
-            log11.error("Internal Server Error: Error code: " + response.statusCode());
-        else {
-            body = new JSONObject(response.body());
-            requestEndpoint = String.valueOf(response.request());
+    protected void getBody() {
+        try {
+           response = client.sendAsync(request,
+                   HttpResponse.BodyHandlers.ofString()).get();
+           
+            if (response.statusCode() == 401)
+                log1.error("Incorrect authentication credential: Error code: " + response.statusCode());
+            else if (response.statusCode() == 404)
+                log1.error("Page not found Error code: " + response.statusCode());
+            else if (response.statusCode() == 405)
+                log1.error("Method Not Allowed: Error code: " + response.statusCode());
+            else if (response.statusCode() == 415)
+                log1.error("invalid format: Error code: " + response.statusCode());
+            else if (response.statusCode() == 500)
+                log1.error("Internal Server Error: Error code: " + response.statusCode());
+            else {
+                body = new JSONObject(response.body());
+                requestEndpoint = response.request().toString();
+            }
+        } catch (NullPointerException | IllegalArgumentException | InterruptedException | ExecutionException e) {
+            log1.error(e.getMessage());
         }
     }
+
     protected void request_info() {
-        log11.info("Sending Request to Paymob: " + requestEndpoint);
+        log1.info("Sending Request to Paymob: " + requestEndpoint);
     }
 }

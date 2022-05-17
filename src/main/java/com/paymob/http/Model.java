@@ -1,16 +1,43 @@
 package com.paymob.http;
 
 public class Model {
-    private int sdk_api_version = 1;
 
-    protected final char getVersion() { return 'v'; }
+    private String sdk_api_version = "v1";
+    private String Base_URL = "https://flashapi.paymob.com/";
 
-    protected final String getBase_URL() {
-        return "https://next-stg.paymobsolutions.com/next/api/";
+    public Model(String base_URL, String sdk_api_version) {
+        this.sdk_api_version = sdk_api_version;
+        Base_URL = base_URL;
+    }
+
+    public Model() {}
+
+    protected String getSdk_api_version() {
+        return sdk_api_version;
+    }
+
+    protected void setSdk_api_version(String sdk_api_version) {
+        this.sdk_api_version = sdk_api_version;
+    }
+
+    protected String getBase_URL() {
+        return Base_URL;
+    }
+
+    protected void setBase_URL(String base_URL) {
+        Base_URL = base_URL;
     }
 
     protected final String getIntentionPath() {
         return "/intention/";
+    }
+
+    protected final String getCustomerPath() {
+        return "/customer/";
+    }
+
+    protected final String getMotoPath() {
+        return "/intention/confirm-moto/";
     }
 
     protected final String getRefundPath() {
@@ -23,13 +50,5 @@ public class Model {
 
     protected final String getCapturePath() {
         return "/payment-reference/capture/";
-    }
-
-    protected int getSdk_api_version() {
-        return sdk_api_version;
-    }
-
-    protected void setSdk_api_version(int sdk_api_version) {
-        this.sdk_api_version = sdk_api_version;
     }
 }

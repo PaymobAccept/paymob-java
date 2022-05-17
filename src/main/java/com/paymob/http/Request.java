@@ -10,5 +10,4 @@ public class Request {
     public void setSecretKey(String secret_key) {
         this.secretKey = secret_key;
     }
-
 }
